@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+rbenv install -s
+gem install --conservative bundler
+
+rm -f Gemfile.lock
+bundle install
