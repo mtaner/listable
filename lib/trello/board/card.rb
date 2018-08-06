@@ -1,21 +1,19 @@
 module Trello
   module Board
     class Card
-      attr_reader :title, :description, :due_date, :priority
+      attr_reader :title, :description, :due_date
 
-      def initialize(title:, description:, due_date:, priority:)
+      def initialize(title:, description:, due_date:)
         @title = title
         @description = description
         @due_date = due_date
-        @priority = priority
       end
 
       def to_h
         {
           title: title,
           description: description,
-          due_date: due_date,
-          priority: priority
+          due_date: due_date
         }
       end
     end

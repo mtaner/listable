@@ -16,7 +16,7 @@ module Trello
       end
 
       def add_new_card(card_title:, description:, due_date:)
-        card = Card.new(title: card_title, description: description, due_date: due_date, priority: (@cards.length + 1))
+        card = Card.new(title: card_title, description: description, due_date: due_date)
         @cards[card_title] = card.to_h
       end
 
@@ -24,18 +24,15 @@ module Trello
         @cards.delete(card_title)
       end
 
-      def set_cards_in_priority
-        @cards.map do |_card_title, card_info|
-          priority = card_info.delete(:priority)
-          [priority, card_info]
-        end.to_h
+      def cards_in_priority
+        @cards.sort_by { |name, info| info[:due_date] }
       end
 
       def to_h
         {
           title: title,
           priority: priority,
-          cards: set_cards_in_priority
+          cards: cards_in_priority
         }
       end
 
