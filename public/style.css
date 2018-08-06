@@ -1,0 +1,62 @@
+body {
+  background-color: yellow;
+}
+
+.board {
+  display: flex;
+  position: fixed;
+  background-image: url("background.jpg");
+  font-family: 'Delius', cursive;
+  width: 102%;
+  height: 90%;
+  margin: 0;
+  padding: 0;
+  top:85px;
+  bottom: 0;
+}
+
+.card {
+  border-color: black;
+  border-style: double;
+  margin: 2px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.card-body {
+  padding: 5px !important;
+}
+
+.card-header {
+  padding: 5px !important;
+}
+
+
+.delete-btn{
+  float: right;
+  height: 30px;
+}
+
+.list {
+  margin: 10px;
+  border-color: black;
+  border-style: double;
+  border-radius: 10px;
+  background-color: white;
+  overflow: scroll !important;
+}
+
+.list-title {
+  margin-top: 10px;
+}
+
+.new-list__form {
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+#new-column {
+  max-height: 30px;
+  width: auto;
+  margin-top: 33px;
+}

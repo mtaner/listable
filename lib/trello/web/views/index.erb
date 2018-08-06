@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>App</title>
+    <link rel='stylesheet' type='text/css' href='/style.css'/>
+    <link href='https://fonts.googleapis.com/css?family=Delius' rel='stylesheet'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+  </head>
+  <body class='container-fluid'>
+    <nav class='navbar border-bottom'>
+      <img style='height:70px;' src='/listable.png' alt=''/>
+    </nav>
+    <div class='row board'>
+        <% lists.each_with_index do |list, i| %>
+          <div class='col-2 list'>
+            <div class='list-title'>
+              <form class='delete-btn' method='post' action="/list/<%= list[:title] %>">
+                <input type='hidden' name='_method' value='DELETE'>
+                <input value='x' class='close' type='submit' aria-label='Close'>
+              </form>
+              <h4><%= list[:title] %></h4>
+            </div>
+            <% list[:cards].each do |card_name, card_info| %>
+            <div class='card'>
+              <div class='card-header'>
+                <span>
+                  <form method='post' action="/list/<%= list[:title] %>/cards/<%= card_name %>">
+                    <input type='hidden' name='_method' value='DELETE'>
+                    <input value='x' class='close' type='submit' aria-label='Close'>
+                  </form>
+                  <p>Due: <%= card_info[:due_date] %></p>
+                </span>
+                <h5 class='card-title'><%= card_name %></h5>
+              </div>
+              <div class='card-body'>
+                <p class='card-text'><%= card_info[:description] %></p>
+                <form method='post' action="/list/<%= list[:title] %>/cards/<%= card_name %>/move">
+                  <input title='Move to the next column' value='->' class='btn btn-secondary btn-sm' type='submit'>
+                </form>
+              </div>
+            </div>
+            <% end %>
+            <div>
+              <button class='btn btn-secondary' onclick="hide(<%= i %>)">New card+</button>
+              <form style='display: none; margin-top: 5px;' id="<%= i %>" method='post' action="/list/<%= list[:title] %>/cards/new">
+                <input type='text' name='card_title' placeholder='Card title' required></input>
+                <input type='text' name='description' placeholder='Description' required></input>
+                <input type='date' name='due_date' placeholder='Due date'></input>
+                <input value='Add' class='btn btn-secondary' type='submit'>
+              </form>
+            </div>
+          </div>
+        <% end %>
+        <div class=new-list__form>
+          <button class='btn btn-secondary' onclick="hide('new-column')">New list +</button>
+          <form style='display: none;' id='new-column' method='post' action='/list/new'>
+            <input type='text' name='title' placeholder='List title' required></input>
+            <input value='Add' class='btn btn-secondary' type='submit'>
+          </form>
+        </div>
+    </div>
+
+    <script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
+    <script type='text/javascript' src='/utils.js'></script>
+  </body>
+</html>
