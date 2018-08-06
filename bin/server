@@ -7,9 +7,8 @@ require 'trello/web/application'
 
 defaults = { '-h' => 'localhost',
              '-p' => 4567 }
-options = ARGV.each_slice(2).reduce(defaults) { |m, (k, v)| m.merge(k => v) }
 
 server = Rack::Handler.default
 server.run(Trello::Web::Application.new,
-           Host: options.fetch('-h'),
-           Port: options.fetch('-p').to_i)
+           Host: defaults.fetch('-h'),
+           Port: defaults.fetch('-p').to_i)
