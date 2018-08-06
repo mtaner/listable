@@ -35,7 +35,7 @@ module Trello
       private
 
       def cards_in_priority
-        @cards.sort_by { |name, info| info[:due_date] }.flatten
+        @cards.sort_by { |name, info| info[:due_date] }
       end
     end
   end
